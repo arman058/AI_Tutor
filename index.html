@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AI Tutor Voice Test</title>
+</head>
+<body>
+
+<h2>AI Tutor Voice Test</h2>
+
+<button onclick="startVoice()">Start Tutor</button>
+
+<script>
+
+let ws;
+let audioChunks = [];
+
+function startVoice() {
+
+    ws = new WebSocket("ws://localhost:8000/voice-tutor");
+
+    ws.binaryType = "arraybuffer";
+
+    ws.onopen = () => {
+
+        console.log("Connected");
+
+        ws.send(JSON.stringify({
+            subject: "DSA",
+            chapter: "Arrays",
+            topic: "Sliding Window"
+        }));
+
+    };
+
+    ws.onmessage = (event) => {
+
+        if (typeof event.data === "string") {
+
+            if (event.data === "END") {
+
+                console.log("Audio complete");
+
+                const blob = new Blob(audioChunks, { type: "audio/mpeg" });
+
+                const url = URL.createObjectURL(blob);
+
+                const audio = new Audio(url);
+
+                audio.play();
+
+            }
+
+        } else {
+
+            audioChunks.push(event.data);
+
+        }
+
+    };
+
+}
+
+</script>
+
+</body>
+</html>

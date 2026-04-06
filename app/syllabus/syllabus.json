@@ -1,0 +1,16 @@
+{
+  "DSA": {
+    "Arrays": [
+      "Introduction to Arrays",
+      "Two Pointer Technique",
+      "Sliding Window Technique",
+      "Prefix Sum"
+    ],
+    "Linked List": [
+      "Introduction to Linked List",
+      "Insertion in Linked List",
+      "Deletion in Linked List",
+      "Reverse Linked List"
+    ]
+  }
+}
